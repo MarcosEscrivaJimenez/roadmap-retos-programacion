@@ -1,0 +1,32 @@
+name: Stats
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: 'pypy3.14'
+
+      - name: Run script
+        run: python ./roadmap/stats.py
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: Update stats
+          commit_user_name: Marcos Escriva [GitHub Actions]
+          commit_user_email: marcosescrivajimenez@gmail.com
+          commit_author: marcosdev
